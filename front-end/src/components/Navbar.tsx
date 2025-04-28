@@ -16,13 +16,22 @@ import ListItemButton from '@mui/material/ListItemButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Toolbar } from '@mui/material';
 
+interface PaletteType {
+	none: string;
+    low: string;
+    medium: string;
+    high: string;
+    urgent: string;
+}
+
 // type declaration for NavbarProps
 interface NavbarProps {
 	// declaring setPage as a function with type string and it wont return anything (void)
 	setPage: (page: string) => void;
+    palette: PaletteType;
 }
 
-function Navbar({ setPage }: NavbarProps) {
+function Navbar({ setPage, palette }: NavbarProps) {
     // state manager for drawer visibility
     const [open, setOpen] = React.useState(false);
 
@@ -37,7 +46,7 @@ function Navbar({ setPage }: NavbarProps) {
         
             {/* Standard Navigation */}
             <List>
-                {['Home', 'My Profile', 'Cal Test'].map((text, index) => (
+                {['Home', 'My Contacts', 'Cal Test'].map((text, index) => (
                     <ListItem key={index} disablePadding onClick={() => setPage(text)}>
                         <ListItemButton>
                             {text}
@@ -64,7 +73,7 @@ function Navbar({ setPage }: NavbarProps) {
 
 	return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="sticky" sx={{ bgcolor: "lightseagreen" }}>
+            <AppBar position="sticky" sx={{ bgcolor: palette.none }}>
                 <Toolbar>
                     <Button onClick={toggleDrawer(true)}>
                         <MenuIcon sx={{ color: "white" }}/>
@@ -72,7 +81,7 @@ function Navbar({ setPage }: NavbarProps) {
                     <Drawer open={open} onClose={toggleDrawer(false)}>
                         {DrawerList}
                     </Drawer>
-                    <h3 onClick={() => setPage('Home')}>eMotion</h3>
+                    <h3 onClick={() => setPage('Home')}>KeepUp</h3>
                 </Toolbar>
             </AppBar>
         </Box>
