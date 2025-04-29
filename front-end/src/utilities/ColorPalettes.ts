@@ -3,6 +3,14 @@ type Priority = "none" | "low" | "medium" | "high" | "urgent"
 
 type Color = `#${string}`
 
+interface PaletteType {
+	none: string;
+    low: string;
+    medium: string;
+    high: string;
+    urgent: string;
+}
+
 // Record ensures that all emotions are present and all values are strings (hex codes)
 const basePalette: Record<Priority, Color> = {
     none: "#00C452",
@@ -29,4 +37,5 @@ const vibrantPalette: Record<Priority, Color> = {
 }
 
 // export for use in other files
-export { basePalette, softPalette, vibrantPalette }
+export { basePalette, softPalette, vibrantPalette };
+export type { Color, PaletteType, Priority };

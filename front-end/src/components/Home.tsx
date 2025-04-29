@@ -1,12 +1,7 @@
-import { basePalette, softPalette, vibrantPalette } from "../utilities/ColorPalettes";
+import { basePalette, PaletteType, softPalette, vibrantPalette } from "../utilities/ColorPalettes";
 
-// type declaration for NavbarProps
-interface HomeProps {
-	// declaring setPage as a function with type string and it wont return anything (void)
-	setPalette: (palette: Record<string, string>) => void;
-}
 
-function Home({ setPalette }: HomeProps) {
+function Home({ setPalette }: { setPalette: React.Dispatch<React.SetStateAction<PaletteType>> }) {
     return (
         <>
             <h2>Landing Page</h2>

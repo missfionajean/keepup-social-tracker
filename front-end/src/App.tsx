@@ -14,14 +14,15 @@ import MyContacts from './components/MyContacts';
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import CalTest from "./components/CalTest";
-import { basePalette, softPalette, vibrantPalette } from './utilities/ColorPalettes';
+import { basePalette, PaletteType } from './utilities/ColorPalettes';
+
 
 function App() {
 	// state to keep track of which page is rendered
 	const [page, setPage] = React.useState("Home");
 
     // state varaible for current color palette
-    const [palette, setPalette] = React.useState(basePalette);
+    const [palette, setPalette] = React.useState<PaletteType>(basePalette);
 
 	return (
         // LocalizationProvider grabs date from AdapterDayjs, which is a date adapter for MUI
