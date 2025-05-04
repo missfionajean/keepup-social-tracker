@@ -1,6 +1,5 @@
 import { basePalette, PaletteType, softPalette, vibrantPalette } from "../utilities/ColorPalettes";
 
-
 function Home({ setPalette }: { setPalette: React.Dispatch<React.SetStateAction<PaletteType>> }) {
     return (
         <>

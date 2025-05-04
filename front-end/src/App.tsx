@@ -16,10 +16,9 @@ import SignUp from "./components/SignUp";
 import CalTest from "./components/CalTest";
 import { basePalette, PaletteType } from './utilities/ColorPalettes';
 
-
 function App() {
 	// state to keep track of which page is rendered
-	const [page, setPage] = React.useState("Home");
+	const [page, setPage] = React.useState("My Contacts");
 
     // state varaible for current color palette
     const [palette, setPalette] = React.useState<PaletteType>(basePalette);
@@ -32,9 +31,9 @@ function App() {
                 {/* CSS Baseline provides extra styling presets to improve MUI compatibility */}
                 <CssBaseline />
                 <Navbar setPage={setPage} palette={palette} />
-                <Box sx={{ m: 2 }}>
+                <Box sx={{ m: 2, bgcolor: "white" }}>
                     {page === "Home" ? <Home setPalette={setPalette}/> : ""}
-                    {page === "My Contacts" ? <MyContacts /> : ""}
+                    {page === "My Contacts" ? <MyContacts palette={palette} /> : ""}
                     {page === "Sign In" ? <SignIn setPage={setPage} /> : ""}
                     {page === "Sign Up" ? <SignUp setPage={setPage} /> : ""}
                     {page === "Cal Test" ? <CalTest /> : ""}
