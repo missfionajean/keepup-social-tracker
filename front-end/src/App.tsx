@@ -11,6 +11,7 @@ import Box from '@mui/material/Box';
 import Navbar from "./components/Navbar";
 import Home from './components/Home';
 import MyContacts from './components/MyContacts';
+import AddContact from "./components/AddContact";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import CalTest from "./components/CalTest";
@@ -33,10 +34,11 @@ function App() {
                 <Navbar setPage={setPage} palette={palette} />
                 <Box sx={{ m: 2, bgcolor: "white" }}>
                     {page === "Home" ? <Home setPalette={setPalette}/> : ""}
-                    {page === "My Contacts" ? <MyContacts palette={palette} /> : ""}
+                    {page === "My Contacts" ? <MyContacts setPage={setPage} palette={palette}  /> : ""}
                     {page === "Sign In" ? <SignIn setPage={setPage} /> : ""}
                     {page === "Sign Up" ? <SignUp setPage={setPage} /> : ""}
                     {page === "Cal Test" ? <CalTest /> : ""}
+                    {page === "Add Contact" ? <AddContact setPage={setPage} /> : ""}
                 </Box>
             </React.Fragment>
         </LocalizationProvider>
