@@ -86,7 +86,12 @@ const sampleData = [
 ];
 
 function MyContacts({ setPage, palette }: MyContactsProps) {
-	const [selectedCard, setSelectedCard] = React.useState(0);
+    // state variable to keep track of which card is selected
+	const [selectedCard, setSelectedCard] = React.useState(-1);
+
+    // state variable to filter the contact list
+    const [filterText, setFliteredText] = React.useState("");
+
 	return (
 		<>
 			<h1>MyContacts</h1>
@@ -133,6 +138,8 @@ function MyContacts({ setPage, palette }: MyContactsProps) {
 						id="outlined-basic"
 						label="Search"
 						variant="outlined"
+						value={filterText}
+						onChange={(e) => setFliteredText(e.target.value)}
 					/>
 					<Button
 						sx={{ backgroundColor: "gray" }}
@@ -146,7 +153,7 @@ function MyContacts({ setPage, palette }: MyContactsProps) {
 				<Divider sx={{ margin: "10px 0", width: "95%" }} />
 
 				<Stack spacing={2} direction="column">
-					{sampleData.map((contact, index) => (
+					{sampleData.filter(contact => contact.fullName.toLowerCase().includes(filterText.toLowerCase())).map((contact, index) => (
 						<div key={index}>
 							<Card
 								sx={{
