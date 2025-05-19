@@ -1,11 +1,18 @@
+// imports React and ReactDOM for rendering components
 import React from "react";
+
+// imports for custom components
+import EditContact from "./EditContact";
+import ContactDetail from "./ContactDetail";
+
+// imports for Material-UI components
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardActionArea from "@mui/material/CardActionArea";
 import Divider from "@mui/material/Divider";
+import Card from "@mui/material/Card";
+import CardActionArea from "@mui/material/CardActionArea";
+import { CardContent } from "@mui/material";
 
 // type declaration for MyContacts props
 interface MyContactsProps {
@@ -86,11 +93,21 @@ const sampleData = [
 ];
 
 function MyContacts({ setPage, palette }: MyContactsProps) {
-    // state variable to keep track of which card is selected
+	// state variable to keep track of which card is selected
 	const [selectedCard, setSelectedCard] = React.useState(-1);
 
-    // state variable to filter the contact list
-    const [filterText, setFliteredText] = React.useState("");
+	// state variable to filter the contact list
+	const [filterText, setFliteredText] = React.useState("");
+
+	// state variable to display or hide edit form
+	const [showEdit, setShowEdit] = React.useState(false);
+
+	function handleCardClick(index: number) {
+		setSelectedCard((prevIndex) => (prevIndex === index ? -1 : index));
+		if (showEdit) {
+			setShowEdit(false);
+		}
+	}
 
 	return (
 		<>
@@ -153,64 +170,69 @@ function MyContacts({ setPage, palette }: MyContactsProps) {
 				<Divider sx={{ margin: "10px 0", width: "95%" }} />
 
 				<Stack spacing={2} direction="column">
-					{sampleData.filter(contact => contact.fullName.toLowerCase().includes(filterText.toLowerCase())).map((contact, index) => (
-						<div key={index}>
-							<Card
-								sx={{
-									backgroundColor:
-										palette[
-											contact.priority as keyof PaletteType
-										],
-									width: "95%",
-								}}
-							>
-								<CardActionArea
-									onClick={() => setSelectedCard(index)}
-									data-active={
-										selectedCard === index ? "" : undefined
-									}
+					{sampleData
+						.filter((contact) =>
+							contact.fullName
+								.toLowerCase()
+								.includes(filterText.toLowerCase())
+						)
+						.map((contact, index) => (
+							<div key={index}>
+								<Card
 									sx={{
-										height: "100%",
-										"&[data-active]": {
-											backgroundColor: "action.selected",
-											"&:hover": {
-												backgroundColor:
-													"action.selectedHover",
-											},
-										},
+										backgroundColor:
+											palette[
+												contact.priority as keyof PaletteType
+											],
+										width: "95%",
 									}}
 								>
-									<CardContent sx={{ height: "100%" }}>
-										<h3>{contact.fullName}</h3>
-										{selectedCard === index ? (
-											<div>
-												<p>
-													Last Contact: {contact.lastContact}
-												</p>
-												<p>
-													Frequency: {contact.frequency}
-												</p>
-												<Button
-													sx={{ backgroundColor: "gray", marginRight: "10px" }}
-													variant="contained"
-												>
-													Edit
-												</Button>
-                                                <Button
-													sx={{ backgroundColor: "gray" }}
-													variant="contained"
-												>
-													Update
-												</Button>
-											</div>
-										) : (
-											""
-										)}
-									</CardContent>
-								</CardActionArea>
-							</Card>
-						</div>
-					))}
+									<CardActionArea
+										onClick={() => handleCardClick(index)}
+										data-active={
+											selectedCard === index
+												? ""
+												: undefined
+										}
+										sx={{
+											height: "100%",
+											"&[data-active]": {
+												backgroundColor:
+													"action.selected",
+												"&:hover": {
+													backgroundColor:
+														"action.selectedHover",
+												},
+											},
+										}}
+									>
+										<CardContent sx={{ height: "100%" }}>
+											{showEdit &&
+											selectedCard === index ? (
+												<EditContact
+													contact={contact}
+													setShowEdit={setShowEdit}
+												/>
+											) : (
+												<>
+													<h3>{contact.fullName}</h3>
+													{selectedCard === index ? (
+														<ContactDetail
+															contact={contact}
+															setShowEdit={
+																setShowEdit
+															}
+														/>
+													) : (
+														""
+													)}
+												</>
+											)}
+										</CardContent>
+									</CardActionArea>
+								</Card>
+							</div>
+						))}
 				</Stack>
 			</section>
 		</>
