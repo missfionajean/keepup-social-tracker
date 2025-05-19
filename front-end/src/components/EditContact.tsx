@@ -26,6 +26,8 @@ function EditContact({ contact, setShowEdit }: EditContactProps) {
 					defaultValue={contact.fullName}
 					onClick={(e) => e.stopPropagation()}
                     onMouseDown={(e) => e.stopPropagation()}
+                    onTouchStart={(e) => e.stopPropagation()}
+                    onTouchEnd={(e) => e.stopPropagation()}
 				/>
 			</FormControl>
 			<FormControl required>
@@ -35,6 +37,8 @@ function EditContact({ contact, setShowEdit }: EditContactProps) {
 					defaultValue={contact.lastContact}
 					onClick={(e) => e.stopPropagation()}
                     onMouseDown={(e) => e.stopPropagation()}
+                    onTouchStart={(e) => e.stopPropagation()}
+                    onTouchEnd={(e) => e.stopPropagation()}
 				/>
 			</FormControl>
 			<FormControl required>
@@ -44,10 +48,12 @@ function EditContact({ contact, setShowEdit }: EditContactProps) {
 					defaultValue={contact.frequency}
 					onClick={(e) => e.stopPropagation()}
                     onMouseDown={(e) => e.stopPropagation()}
+                    onTouchStart={(e) => e.stopPropagation()}
+                    onTouchEnd={(e) => e.stopPropagation()}
 				/>
 			</FormControl>
 			<Button type="submit" variant="contained">
-				Update
+				Submit
 			</Button>
 		</form>
 	);
