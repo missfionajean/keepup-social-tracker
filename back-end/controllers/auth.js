@@ -8,11 +8,6 @@ const User = require("../models/user.js");
 const express = require("express");
 const router = express.Router();
 
-// defines sign-up path after "/auth"
-router.get("/sign-up", (req, res) => {
-	res.render("auth/sign-up.ejs");
-});
-
 // response to POST request to "/auth/sign-up"
 router.post("/sign-up", async (req, res) => {
 	// check if username is already in database
@@ -39,14 +34,6 @@ router.post("/sign-up", async (req, res) => {
 		username: newUser.username,
 		_id: newUser._id,
 	};
-
-    // sends us back to root page
-	res.redirect("/");
-});
-
-// defines sign-in path after "/auth"
-router.get("/sign-in", (req, res) => {
-	res.render("auth/sign-in.ejs");
 });
 
 // response to POST request to "/auth/sign-in"
@@ -71,16 +58,12 @@ router.post("/sign-in", async (req, res) => {
 		username: userInDatabase.username,
 		_id: userInDatabase._id,
 	};
-
-    // sends us back to root page
-	res.redirect("/");
 });
 
 // defines sign-out path after "/auth"
 router.get("/sign-out", (req, res) => {
     // destroys session
     req.session.destroy();
-    res.redirect("/");
 });
 
 // export router for use in server.js

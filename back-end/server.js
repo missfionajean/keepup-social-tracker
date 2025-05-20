@@ -60,22 +60,6 @@ app.listen(port, () => {
 
 // --- HTTP ROUTES --- //
 
-// GET route for root
-app.get("/", async (req, res) => {
-	res.render("index.ejs", {
-		user: req.session.user,
-	});
-});
-
-// protected route
-app.get("/vip-lounge", (req, res) => {
-	if (req.session.user) {
-		res.send(`Welcome to the party ${req.session.user.username}.`);
-	} else {
-		res.send("Sorry, no guests allowed.");
-	}
-});
-
 // funnels "/auth" routes to authController
 app.use("/auth", authController);
 
