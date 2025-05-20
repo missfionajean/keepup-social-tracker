@@ -34,13 +34,13 @@ const sampleData = [
 		fullName: "John Doe",
 		lastContact: "2023-10-01",
 		frequency: "weekly",
-		priority: "high",
+		priority: "low",
 	},
 	{
 		fullName: "Jane Smith",
 		lastContact: "2023-09-15",
 		frequency: "monthly",
-		priority: "urgent",
+		priority: "medium",
 	},
 	{
 		fullName: "Alice Johnson",
@@ -52,7 +52,7 @@ const sampleData = [
 		fullName: "Bob Brown",
 		lastContact: "2023-10-05",
 		frequency: "weekly",
-		priority: "low",
+		priority: "high",
 	},
 	{
 		fullName: "Charlie Black",
@@ -197,8 +197,6 @@ function MyContacts({ setPage, palette }: MyContactsProps) {
 										sx={{
 											height: "100%",
 											"&[data-active]": {
-												backgroundColor:
-													"action.selected",
 												"&:hover": {
 													backgroundColor:
 														"action.selectedHover",
