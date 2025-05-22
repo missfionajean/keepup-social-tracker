@@ -6,7 +6,6 @@ interface EditContactProps {
 		fullName: string;
 		lastContact: string;
 		frequency: string;
-		priority: string;
 	};
 	setShowEdit: (showEdit: boolean) => void;
 }

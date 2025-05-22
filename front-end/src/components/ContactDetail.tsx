@@ -7,7 +7,6 @@ interface ContactDetailProps {
 		fullName: string;
 		lastContact: string;
 		frequency: string;
-		priority: string;
 	};
 	setShowEdit: (showEdit: boolean) => void;
 }
@@ -36,6 +35,9 @@ function ContactDetail({ contact, setShowEdit }: ContactDetailProps) {
 						backgroundColor: "gray",
 					}}
 					variant="contained"
+                    onClick={(e) => {
+						e.stopPropagation();
+					}}
 				>
 					Update
 				</Button>

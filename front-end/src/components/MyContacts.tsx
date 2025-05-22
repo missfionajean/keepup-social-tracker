@@ -37,61 +37,51 @@ const sampleData = [
 		fullName: "John Doe",
 		lastContact: "2023-10-01",
 		frequency: "weekly",
-		priority: "low",
 	},
 	{
 		fullName: "Jane Smith",
 		lastContact: "2023-09-15",
 		frequency: "monthly",
-		priority: "medium",
 	},
 	{
 		fullName: "Alice Johnson",
 		lastContact: "2023-08-20",
 		frequency: "yearly",
-		priority: "medium",
 	},
 	{
 		fullName: "Bob Brown",
 		lastContact: "2023-10-05",
 		frequency: "weekly",
-		priority: "high",
 	},
 	{
 		fullName: "Charlie Black",
 		lastContact: "2023-09-10",
 		frequency: "monthly",
-		priority: "none",
 	},
 	{
 		fullName: "Diana White",
 		lastContact: "2023-08-25",
 		frequency: "yearly",
-		priority: "high",
 	},
 	{
 		fullName: "Eve Green",
 		lastContact: "2023-10-02",
 		frequency: "weekly",
-		priority: "urgent",
 	},
 	{
 		fullName: "Frank Blue",
 		lastContact: "2023-09-12",
 		frequency: "monthly",
-		priority: "medium",
 	},
 	{
 		fullName: "Grace Yellow",
 		lastContact: "2023-08-30",
 		frequency: "yearly",
-		priority: "low",
 	},
 	{
 		fullName: "Hank Red",
 		lastContact: "2023-10-03",
 		frequency: "weekly",
-		priority: "none",
 	},
 ];
 
@@ -117,12 +107,12 @@ function MyContacts({ setPage, palette }: MyContactsProps) {
 	const currentDate = new Date();
 
 	// function to calculate the difference in days between two dates
-	function dateDiffLuxon(date1: Date, date2: Date): { days: number } {
+	function dateDifference(date1: Date, date2: Date): { days: number } {
 		const previousDate = DateTime.fromJSDate(date1);
 		const newDate = DateTime.fromJSDate(date2);
-		const diffInDays = Math.abs(previousDate.diff(newDate, "days").days);
+		const differenceInDays = Math.abs(previousDate.diff(newDate, "days").days);
 		return {
-			days: diffInDays,
+			days: differenceInDays,
 		};
 	}
 
@@ -188,9 +178,7 @@ function MyContacts({ setPage, palette }: MyContactsProps) {
 								<Card
 									sx={{
 										backgroundColor:
-											palette[
-												contact.priority as keyof PaletteType
-											],
+											"lightgray",
 										width: "95%",
 									}}
 								>
