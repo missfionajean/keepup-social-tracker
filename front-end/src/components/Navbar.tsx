@@ -46,7 +46,7 @@ function Navbar({ setPage, palette }: NavbarProps) {
         
             {/* Standard Navigation */}
             <List>
-                {['Home', 'My Contacts', 'Cal Test'].map((text, index) => (
+                {['Home', 'My Contacts'].map((text, index) => (
                     <ListItem key={index} disablePadding onClick={() => setPage(text)}>
                         <ListItemButton>
                             {text}

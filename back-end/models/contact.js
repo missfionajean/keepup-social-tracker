@@ -7,6 +7,7 @@ const contactSchema = new mongoose.Schema({
     fullName: { type: String, required: true },
     lastContact: { type: String, required: true },
     frequency: { type: String, required: true },
+    notes: { type: String, required: true },
 });
 
 // properly encodes contact schema
