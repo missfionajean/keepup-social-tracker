@@ -35,17 +35,17 @@ interface PaletteType {
 const sampleData = [
 	{
 		fullName: "John Doe",
-		lastContact: "2025-05-01",
+		lastContact: "2025-05-21",
 		frequency: "weekly",
 	},
 	{
 		fullName: "Jane Smith",
-		lastContact: "2025-05-01",
+		lastContact: "2025-05-13",
 		frequency: "monthly",
 	},
 	{
 		fullName: "Alice Johnson",
-		lastContact: "2025-05-01",
+		lastContact: "2025-05-20",
 		frequency: "yearly",
 	},
 	{
@@ -55,32 +55,32 @@ const sampleData = [
 	},
 	{
 		fullName: "Charlie Black",
-		lastContact: "2025-05-01",
+		lastContact: "2025-05-07",
 		frequency: "monthly",
 	},
 	{
 		fullName: "Diana White",
-		lastContact: "2025-05-01",
+		lastContact: "2025-05-12",
 		frequency: "yearly",
 	},
 	{
 		fullName: "Eve Green",
-		lastContact: "2025-05-01",
+		lastContact: "2025-05-21",
 		frequency: "weekly",
 	},
 	{
 		fullName: "Frank Blue",
-		lastContact: "2025-05-01",
+		lastContact: "2025-03-11",
 		frequency: "monthly",
 	},
 	{
 		fullName: "Grace Yellow",
-		lastContact: "2025-05-01",
+		lastContact: "2025-05-05",
 		frequency: "yearly",
 	},
 	{
 		fullName: "Hank Red",
-		lastContact: "2025-05-01",
+		lastContact: "2025-05-22",
 		frequency: "weekly",
 	},
 ];
@@ -197,9 +197,7 @@ function MyContacts({ setPage, palette }: MyContactsProps) {
 								<Card
 									sx={{
 										backgroundColor:
-											selectedCard === index
-                                                ? palette[getPriority(contact)]
-                                                : "white",
+											palette[getPriority(contact)],
 										width: "95%",
 									}}
 								>
