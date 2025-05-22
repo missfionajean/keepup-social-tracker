@@ -1,6 +1,9 @@
 // imports React and ReactDOM for rendering components
 import React from "react";
 
+//
+import { DateTime } from "luxon";
+
 // imports for custom components
 import EditContact from "./EditContact";
 import ContactDetail from "./ContactDetail";
@@ -93,20 +96,34 @@ const sampleData = [
 ];
 
 function MyContacts({ setPage, palette }: MyContactsProps) {
-	// state variable to keep track of which card is selected
-	const [selectedCard, setSelectedCard] = React.useState(-1);
-
 	// state variable to filter the contact list
 	const [filterText, setFliteredText] = React.useState("");
 
 	// state variable to display or hide edit form
 	const [showEdit, setShowEdit] = React.useState(false);
 
+	// state variable to keep track of which card is selected
+	const [selectedCard, setSelectedCard] = React.useState(-1);
+
+	// function to handle card click event
 	function handleCardClick(index: number) {
 		setSelectedCard((prevIndex) => (prevIndex === index ? -1 : index));
 		if (showEdit) {
 			setShowEdit(false);
 		}
+	}
+
+	// creates date object for current date
+	const currentDate = new Date();
+
+	// function to calculate the difference in days between two dates
+	function dateDiffLuxon(date1: Date, date2: Date): { days: number } {
+		const previousDate = DateTime.fromJSDate(date1);
+		const newDate = DateTime.fromJSDate(date2);
+		const diffInDays = Math.abs(previousDate.diff(newDate, "days").days);
+		return {
+			days: diffInDays,
+		};
 	}
 
 	return (
@@ -126,16 +143,6 @@ function MyContacts({ setPage, palette }: MyContactsProps) {
 
 			<section>
 				<h2>Contact List</h2>
-				<p>
-					This is where the contact list will be displayed. It will be
-					a list of names with color-coding based on the last contact
-					date.
-				</p>
-				<p>
-					There will be a button to add a new contact, which will open
-					a form to enter the contact's name and last contact date.
-				</p>
-
 				<Stack
 					spacing={2}
 					direction="row"

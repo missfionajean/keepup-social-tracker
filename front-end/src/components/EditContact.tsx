@@ -1,5 +1,3 @@
-import React from "react";
-import dayjs, { Dayjs } from "dayjs";
 import { FormControl, Input, InputLabel, Button } from "@mui/material";
 
 // type declaration for MyContacts props
@@ -14,9 +12,6 @@ interface EditContactProps {
 }
 
 function EditContact({ contact, setShowEdit }: EditContactProps) {
-	// state variable to hold the current date for comparison
-	const [currentDate] = React.useState<Dayjs>(dayjs());
-
 	// function to handle form submission
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -31,8 +26,6 @@ function EditContact({ contact, setShowEdit }: EditContactProps) {
 	};
 
 	return (
-        <>
-		<p>{currentDate.format("YYYY-MM-DD")}</p>
 		<form
 			onSubmit={handleSubmit}
 			style={{
@@ -54,7 +47,7 @@ function EditContact({ contact, setShowEdit }: EditContactProps) {
 				/>
 			</FormControl>
 			<FormControl required>
-                <InputLabel>Last Contact</InputLabel>
+				<InputLabel>Last Contact</InputLabel>
 				<Input
 					type="date"
 					defaultValue={contact.lastContact}
@@ -85,7 +78,6 @@ function EditContact({ contact, setShowEdit }: EditContactProps) {
 				Submit
 			</Button>
 		</form>
-        </>
 	);
 }
 
