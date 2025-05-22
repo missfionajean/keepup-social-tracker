@@ -1,7 +1,7 @@
 // imports React and ReactDOM for rendering components
 import React from "react";
-
-//
+ 
+// imports needed functionality from luxon for date comparison
 import { DateTime } from "luxon";
 
 // imports for custom components
@@ -35,52 +35,52 @@ interface PaletteType {
 const sampleData = [
 	{
 		fullName: "John Doe",
-		lastContact: "2023-10-01",
+		lastContact: "2025-05-01",
 		frequency: "weekly",
 	},
 	{
 		fullName: "Jane Smith",
-		lastContact: "2023-09-15",
+		lastContact: "2025-05-01",
 		frequency: "monthly",
 	},
 	{
 		fullName: "Alice Johnson",
-		lastContact: "2023-08-20",
+		lastContact: "2025-05-01",
 		frequency: "yearly",
 	},
 	{
 		fullName: "Bob Brown",
-		lastContact: "2023-10-05",
+		lastContact: "2025-05-01",
 		frequency: "weekly",
 	},
 	{
 		fullName: "Charlie Black",
-		lastContact: "2023-09-10",
+		lastContact: "2025-05-01",
 		frequency: "monthly",
 	},
 	{
 		fullName: "Diana White",
-		lastContact: "2023-08-25",
+		lastContact: "2025-05-01",
 		frequency: "yearly",
 	},
 	{
 		fullName: "Eve Green",
-		lastContact: "2023-10-02",
+		lastContact: "2025-05-01",
 		frequency: "weekly",
 	},
 	{
 		fullName: "Frank Blue",
-		lastContact: "2023-09-12",
+		lastContact: "2025-05-01",
 		frequency: "monthly",
 	},
 	{
 		fullName: "Grace Yellow",
-		lastContact: "2023-08-30",
+		lastContact: "2025-05-01",
 		frequency: "yearly",
 	},
 	{
 		fullName: "Hank Red",
-		lastContact: "2023-10-03",
+		lastContact: "2025-05-01",
 		frequency: "weekly",
 	},
 ];
@@ -115,6 +115,25 @@ function MyContacts({ setPage, palette }: MyContactsProps) {
 			days: differenceInDays,
 		};
 	}
+
+    // function to get the priority of the contact based on the last contact date
+	function getPriority(contact: any): keyof PaletteType {
+        const lastContactDate = new Date(contact.lastContact);
+        const daysSinceLastContact = dateDifference(currentDate, lastContactDate).days;
+
+        // return priority based on number of days since last contact
+        if (daysSinceLastContact >= 60) {
+            return "urgent";
+        } else if (daysSinceLastContact >= 30) {
+            return "high";
+		} else if (daysSinceLastContact >= 15) {
+			return "medium";
+		} else if (daysSinceLastContact >= 7) {
+			return "low";
+        } else {
+            return "none";
+        }
+    }
 
 	return (
 		<>
@@ -178,7 +197,9 @@ function MyContacts({ setPage, palette }: MyContactsProps) {
 								<Card
 									sx={{
 										backgroundColor:
-											"lightgray",
+											selectedCard === index
+                                                ? palette[getPriority(contact)]
+                                                : "white",
 										width: "95%",
 									}}
 								>
