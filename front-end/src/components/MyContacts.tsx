@@ -1,8 +1,8 @@
 // imports React and ReactDOM for rendering components
 import React from "react";
- 
-// imports needed functionality from luxon for date comparison
-import { DateTime } from "luxon";
+
+// imports color picker logic
+import { getPriority } from "../utilities/ColorLogic";
 
 // imports for custom components
 import EditContact from "./EditContact";
@@ -29,39 +29,40 @@ interface PaletteType {
 	medium: string;
 	high: string;
 	urgent: string;
+	error: string;
 }
 
 // sample data for testing component
 const sampleData = [
 	{
 		fullName: "John Doe",
-		lastContact: "2025-05-21",
-		frequency: "weekly",
+		lastContact: "2025-05-22",
+		frequency: "daily",
 	},
 	{
 		fullName: "Jane Smith",
-		lastContact: "2025-05-13",
+		lastContact: "2025-03-13",
 		frequency: "monthly",
 	},
 	{
 		fullName: "Alice Johnson",
-		lastContact: "2025-05-20",
-		frequency: "yearly",
+		lastContact: "2024-01-20",
+		frequency: "annually",
 	},
 	{
 		fullName: "Bob Brown",
-		lastContact: "2025-05-01",
-		frequency: "weekly",
+		lastContact: "2025-03-01",
+		frequency: "quarterly",
 	},
 	{
 		fullName: "Charlie Black",
-		lastContact: "2025-05-07",
+		lastContact: "2025-02-07",
 		frequency: "monthly",
 	},
 	{
 		fullName: "Diana White",
-		lastContact: "2025-05-12",
-		frequency: "yearly",
+		lastContact: "2024-10-12",
+		frequency: "biannually",
 	},
 	{
 		fullName: "Eve Green",
@@ -70,18 +71,18 @@ const sampleData = [
 	},
 	{
 		fullName: "Frank Blue",
-		lastContact: "2025-03-11",
-		frequency: "monthly",
+		lastContact: "2025-05-19",
+		frequency: "daily",
 	},
 	{
 		fullName: "Grace Yellow",
-		lastContact: "2025-05-05",
-		frequency: "yearly",
+		lastContact: "2024-01-05",
+		frequency: "annually",
 	},
 	{
 		fullName: "Hank Red",
 		lastContact: "2025-05-22",
-		frequency: "weekly",
+		frequency: "yearly",
 	},
 ];
 
@@ -105,35 +106,6 @@ function MyContacts({ setPage, palette }: MyContactsProps) {
 
 	// creates date object for current date
 	const currentDate = new Date();
-
-	// function to calculate the difference in days between two dates
-	function dateDifference(date1: Date, date2: Date): { days: number } {
-		const previousDate = DateTime.fromJSDate(date1);
-		const newDate = DateTime.fromJSDate(date2);
-		const differenceInDays = Math.abs(previousDate.diff(newDate, "days").days);
-		return {
-			days: differenceInDays,
-		};
-	}
-
-    // function to get the priority of the contact based on the last contact date
-	function getPriority(contact: any): keyof PaletteType {
-        const lastContactDate = new Date(contact.lastContact);
-        const daysSinceLastContact = dateDifference(currentDate, lastContactDate).days;
-
-        // return priority based on number of days since last contact
-        if (daysSinceLastContact >= 60) {
-            return "urgent";
-        } else if (daysSinceLastContact >= 30) {
-            return "high";
-		} else if (daysSinceLastContact >= 15) {
-			return "medium";
-		} else if (daysSinceLastContact >= 7) {
-			return "low";
-        } else {
-            return "none";
-        }
-    }
 
 	return (
 		<>
@@ -197,7 +169,12 @@ function MyContacts({ setPage, palette }: MyContactsProps) {
 								<Card
 									sx={{
 										backgroundColor:
-											palette[getPriority(contact)],
+											palette[
+												getPriority(
+													currentDate,
+													contact
+												) ?? "error"
+											],
 										width: "95%",
 									}}
 								>
