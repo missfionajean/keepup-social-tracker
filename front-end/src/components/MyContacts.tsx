@@ -36,53 +36,53 @@ interface PaletteType {
 const sampleData = [
 	{
 		fullName: "John Doe",
-		lastContact: "2025-05-22",
-		frequency: "daily",
+		lastContact: "2025-05-21",
+		frequency: "Daily",
 	},
 	{
 		fullName: "Jane Smith",
 		lastContact: "2025-03-13",
-		frequency: "monthly",
+		frequency: "Monthly",
 	},
 	{
 		fullName: "Alice Johnson",
 		lastContact: "2024-01-20",
-		frequency: "annually",
+		frequency: "Annually",
 	},
 	{
 		fullName: "Bob Brown",
 		lastContact: "2025-03-01",
-		frequency: "quarterly",
+		frequency: "Quarterly",
 	},
 	{
 		fullName: "Charlie Black",
 		lastContact: "2025-02-07",
-		frequency: "monthly",
+		frequency: "Monthly",
 	},
 	{
 		fullName: "Diana White",
 		lastContact: "2024-10-12",
-		frequency: "biannually",
+		frequency: "Biannually",
 	},
 	{
 		fullName: "Eve Green",
 		lastContact: "2025-05-21",
-		frequency: "weekly",
+		frequency: "Weekly",
 	},
 	{
 		fullName: "Frank Blue",
 		lastContact: "2025-05-19",
-		frequency: "daily",
+		frequency: "Daily",
 	},
 	{
 		fullName: "Grace Yellow",
 		lastContact: "2024-01-05",
-		frequency: "annually",
+		frequency: "Annually",
 	},
 	{
 		fullName: "Hank Red",
 		lastContact: "2025-05-22",
-		frequency: "yearly",
+		frequency: "Yearly",
 	},
 ];
 
@@ -92,6 +92,10 @@ function MyContacts({ setPage, palette }: MyContactsProps) {
 
 	// state variable to display or hide edit form
 	const [showEdit, setShowEdit] = React.useState(false);
+
+	// state variable for contacts object
+	const [displayedContacts, setDisplayedContacts] =
+		React.useState(sampleData);
 
 	// state variable to keep track of which card is selected
 	const [selectedCard, setSelectedCard] = React.useState(-1);
@@ -158,7 +162,7 @@ function MyContacts({ setPage, palette }: MyContactsProps) {
 				<Divider sx={{ margin: "10px 0", width: "95%" }} />
 
 				<Stack spacing={2} direction="column">
-					{sampleData
+					{displayedContacts
 						.filter((contact) =>
 							contact.fullName
 								.toLowerCase()
@@ -200,7 +204,14 @@ function MyContacts({ setPage, palette }: MyContactsProps) {
 											selectedCard === index ? (
 												<EditContact
 													contact={contact}
+													index={index}
 													setShowEdit={setShowEdit}
+													displayedContacts={
+														displayedContacts
+													}
+													setDisplayedContacts={
+														setDisplayedContacts
+													}
 												/>
 											) : (
 												<>
@@ -208,8 +219,18 @@ function MyContacts({ setPage, palette }: MyContactsProps) {
 													{selectedCard === index ? (
 														<ContactDetail
 															contact={contact}
+															index={index}
 															setShowEdit={
 																setShowEdit
+															}
+															displayedContacts={
+																displayedContacts
+															}
+															setDisplayedContacts={
+																setDisplayedContacts
+															}
+															setSelectedCard={
+																setSelectedCard
 															}
 														/>
 													) : (

@@ -8,10 +8,27 @@ interface ContactDetailProps {
 		lastContact: string;
 		frequency: string;
 	};
+    index: number;
 	setShowEdit: (showEdit: boolean) => void;
+	displayedContacts: { fullName: string; lastContact: string; frequency: string }[];
+	setDisplayedContacts: (contacts: { fullName: string; lastContact: string; frequency: string }[]) => void;
+    setSelectedCard: (index: number) => void;
 }
 
-function ContactDetail({ contact, setShowEdit }: ContactDetailProps) {
+function ContactDetail({ contact, index, setShowEdit, displayedContacts, setDisplayedContacts, setSelectedCard }: ContactDetailProps) {
+
+    // function to update the contact date to today's date
+    const updateContact = (index: number) => {
+		const updatedContacts = [...displayedContacts];
+		updatedContacts[index] = {
+			fullName: contact.fullName,
+			lastContact: new Date().toISOString().split("T")[0],
+			frequency: contact.frequency,
+		};
+		setDisplayedContacts(updatedContacts);
+        setSelectedCard(-1);
+	}
+
 	return (
 		<div>
 			<p>Last Contact: {contact.lastContact}</p>
@@ -27,6 +44,9 @@ function ContactDetail({ contact, setShowEdit }: ContactDetailProps) {
 						e.stopPropagation();
 						setShowEdit(true);
 					}}
+					onMouseDown={(e) => e.stopPropagation()}
+					onTouchStart={(e) => e.stopPropagation()}
+					onTouchEnd={(e) => e.stopPropagation()}
 				>
 					Edit
 				</Button>
@@ -37,9 +57,13 @@ function ContactDetail({ contact, setShowEdit }: ContactDetailProps) {
 					variant="contained"
                     onClick={(e) => {
 						e.stopPropagation();
+                        updateContact(index);
 					}}
+                    onMouseDown={(e) => e.stopPropagation()}
+					onTouchStart={(e) => e.stopPropagation()}
+					onTouchEnd={(e) => e.stopPropagation()}
 				>
-					Update
+					Contacted
 				</Button>
 			</Stack>
 		</div>

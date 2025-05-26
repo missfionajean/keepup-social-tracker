@@ -21,7 +21,7 @@ function getPriority(
 		lastContactDate
 	).days;
 
-	if (contact.frequency === "daily") {
+	if (contact.frequency === "Daily") {
 		// return priority based on number of days since last contact
 		if (daysSinceLastContact >= 6) {
 			return "urgent";
@@ -36,7 +36,7 @@ function getPriority(
 		}
 	}
 
-	if (contact.frequency === "weekly") {
+	if (contact.frequency === "Weekly") {
 		// return priority based on number of days since last contact
 		if (daysSinceLastContact >= 21) {
 			return "urgent";
@@ -51,7 +51,7 @@ function getPriority(
 		}
 	}
 
-	if (contact.frequency === "monthly") {
+	if (contact.frequency === "Monthly") {
 		// return priority based on number of days since last contact
 		if (daysSinceLastContact >= 90) {
 			return "urgent";
@@ -66,7 +66,7 @@ function getPriority(
 		}
 	}
 
-	if (contact.frequency === "quarterly") {
+	if (contact.frequency === "Quarterly") {
 		// return priority based on number of days since last contact
 		if (daysSinceLastContact >= 180) {
 			return "urgent";
@@ -81,7 +81,7 @@ function getPriority(
 		}
 	}
 
-	if (contact.frequency === "biannually") {
+	if (contact.frequency === "Biannually") {
 		// return priority based on number of days since last contact
 		if (daysSinceLastContact >= 360) {
 			return "urgent";
@@ -96,7 +96,7 @@ function getPriority(
 		}
 	}
 
-	if (contact.frequency === "annually") {
+	if (contact.frequency === "Annually") {
 		// return priority based on number of days since last contact
 		if (daysSinceLastContact >= 600) {
 			return "urgent";

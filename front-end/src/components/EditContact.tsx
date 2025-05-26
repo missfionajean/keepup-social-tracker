@@ -1,4 +1,11 @@
-import { FormControl, Input, InputLabel, Button } from "@mui/material";
+import React from "react";
+import {
+	FormControl,
+	Input,
+	InputLabel,
+	Button,
+	NativeSelect,
+} from "@mui/material";
 
 // type declaration for MyContacts props
 interface EditContactProps {
@@ -7,26 +14,45 @@ interface EditContactProps {
 		lastContact: string;
 		frequency: string;
 	};
+	index: number;
 	setShowEdit: (showEdit: boolean) => void;
+	displayedContacts: {
+		fullName: string;
+		lastContact: string;
+		frequency: string;
+	}[];
+	setDisplayedContacts: (
+		contacts: { fullName: string; lastContact: string; frequency: string }[]
+	) => void;
 }
 
-function EditContact({ contact, setShowEdit }: EditContactProps) {
-	// function to handle form submission
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+function EditContact({
+	contact,
+	index,
+	setShowEdit,
+	displayedContacts,
+	setDisplayedContacts,
+}: EditContactProps) {
+	// function to update the contact date to today's date
+	const handleSubmit = (
+		e: React.FormEvent<HTMLFormElement>,
+		index: number
+	) => {
 		e.preventDefault();
-		// get the form data
 		const formData = new FormData(e.currentTarget);
-		// update the contact object with the new values
-		contact.fullName = formData.get("fullName") as string;
-		contact.lastContact = formData.get("lastContact") as string;
-		contact.frequency = formData.get("frequency") as string;
-		// close the edit form
+		const updatedContacts = [...displayedContacts];
+		updatedContacts[index] = {
+			fullName: formData.get("fullName") as string,
+			lastContact: formData.get("lastContact") as string,
+			frequency: formData.get("frequency") as string,
+		};
+		setDisplayedContacts(updatedContacts);
 		setShowEdit(false);
 	};
 
 	return (
 		<form
-			onSubmit={handleSubmit}
+			onSubmit={(e) => handleSubmit(e, index)}
 			style={{
 				display: "flex",
 				flexDirection: "column",
@@ -39,7 +65,9 @@ function EditContact({ contact, setShowEdit }: EditContactProps) {
 				<InputLabel>Name</InputLabel>
 				<Input
 					type="text"
+					name="fullName"
 					defaultValue={contact.fullName}
+					onClick={(e) => e.stopPropagation()}
 					onMouseDown={(e) => e.stopPropagation()}
 					onTouchStart={(e) => e.stopPropagation()}
 					onTouchEnd={(e) => e.stopPropagation()}
@@ -49,6 +77,7 @@ function EditContact({ contact, setShowEdit }: EditContactProps) {
 				<InputLabel>Last Contact</InputLabel>
 				<Input
 					type="date"
+					name="lastContact"
 					defaultValue={contact.lastContact}
 					onClick={(e) => e.stopPropagation()}
 					onMouseDown={(e) => e.stopPropagation()}
@@ -58,14 +87,21 @@ function EditContact({ contact, setShowEdit }: EditContactProps) {
 			</FormControl>
 			<FormControl required>
 				<InputLabel>Frequency</InputLabel>
-				<Input
-					type="text"
+				<NativeSelect
+                    name="frequency"
 					defaultValue={contact.frequency}
 					onClick={(e) => e.stopPropagation()}
 					onMouseDown={(e) => e.stopPropagation()}
 					onTouchStart={(e) => e.stopPropagation()}
 					onTouchEnd={(e) => e.stopPropagation()}
-				/>
+				>
+					<option value={"Daily"}>Daily</option>
+					<option value={"Weekly"}>Weekly</option>
+					<option value={"Monthly"}>Monthly</option>
+					<option value={"Quarterly"}>Quarterly</option>
+					<option value={"Biannually"}>Biannually</option>
+					<option value={"Annually"}>Annually</option>
+				</NativeSelect>
 			</FormControl>
 			<Button
 				type="submit"
@@ -73,6 +109,10 @@ function EditContact({ contact, setShowEdit }: EditContactProps) {
 				sx={{
 					backgroundColor: "gray",
 				}}
+				onClick={(e) => e.stopPropagation()}
+				onMouseDown={(e) => e.stopPropagation()}
+				onTouchStart={(e) => e.stopPropagation()}
+				onTouchEnd={(e) => e.stopPropagation()}
 			>
 				Submit
 			</Button>
