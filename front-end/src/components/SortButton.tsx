@@ -3,7 +3,11 @@ import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 
-function SortButton() {
+interface SortButtonProps {
+	setSortMethod: (method: string) => void;
+}
+
+function SortButton({ setSortMethod }: SortButtonProps) {
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 	const open = Boolean(anchorEl);
 	const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -14,12 +18,12 @@ function SortButton() {
 	};
 
 	return (
-		<div>
+		<>
 			<Button
 				id="sort-button"
 				sx={{ backgroundColor: "gray" }}
 				variant="contained"
-				aria-controls={open ? "basic-menu" : undefined}
+				aria-controls={open ? "sort-menu" : undefined}
 				aria-haspopup="true"
 				aria-expanded={open ? "true" : undefined}
 				onClick={handleClick}
@@ -32,12 +36,40 @@ function SortButton() {
 				open={open}
 				onClose={handleClose}
 			>
-				<MenuItem onClick={handleClose}>Priority</MenuItem>
-				<MenuItem onClick={handleClose}>Reverse Priority</MenuItem>
-				<MenuItem onClick={handleClose}>Alphabetical</MenuItem>
-				<MenuItem onClick={handleClose}>Contact Frequency</MenuItem>
+				<MenuItem
+					onClick={() => {
+						handleClose();
+						setSortMethod("Priority");
+					}}
+				>
+					Priority
+				</MenuItem>
+				<MenuItem
+					onClick={() => {
+						handleClose();
+						setSortMethod("Reverse Priority");
+					}}
+				>
+					Reverse Priority
+				</MenuItem>
+				<MenuItem
+					onClick={() => {
+						handleClose();
+						setSortMethod("Alphabetical");
+					}}
+				>
+					Alphabetical
+				</MenuItem>
+				<MenuItem
+					onClick={() => {
+						handleClose();
+						setSortMethod("Contact Frequency");
+					}}
+				>
+					Contact Frequency
+				</MenuItem>
 			</Menu>
-		</div>
+		</>
 	);
 }
 

@@ -101,6 +101,9 @@ function MyContacts({ setPage, palette }: MyContactsProps) {
 			{ fullName: string; lastContact: string; frequency: string }[]
 		>(sampleData);
 
+	// state variable to hold sorting method
+	const [sortMethod, setSortMethod] = React.useState("Priority");
+
 	// initialize and order contacts, runs again when displayedContacts changes
 	useEffect(() => {
 		// map through contacts array to add priority to each entry
@@ -110,10 +113,7 @@ function MyContacts({ setPage, palette }: MyContactsProps) {
 		}));
 		sortContacts(prioritizedContacts);
 		setDisplayedContacts(prioritizedContacts);
-	}, [displayedContacts]);
-
-	// state variable to hold sorting method
-	const [sortMethod, setSortMethod] = React.useState("priority-ascending");
+	}, [displayedContacts, sortMethod]);
 
 	// state variable to keep track of which card is selected
 	const [selectedCard, setSelectedCard] = React.useState(-1);
@@ -155,7 +155,7 @@ function MyContacts({ setPage, palette }: MyContactsProps) {
 						alignItems: "center",
 					}}
 				>
-					<SortButton />
+					<SortButton setSortMethod={setSortMethod}/>
 					<TextField
 						id="outlined-basic"
 						label="Search"
