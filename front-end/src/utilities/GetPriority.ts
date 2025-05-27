@@ -112,4 +112,4 @@ function getPriority(
 	}
 }
 
-export { getPriority, dateDifference };
+export default getPriority;
