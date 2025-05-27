@@ -111,7 +111,7 @@ function MyContacts({ setPage, palette }: MyContactsProps) {
 			...contact,
 			priority: getPriority(new Date(), contact) || "error",
 		}));
-		sortContacts(prioritizedContacts);
+		sortContacts(prioritizedContacts, sortMethod);
 		setDisplayedContacts(prioritizedContacts);
 	}, [displayedContacts, sortMethod]);
 
