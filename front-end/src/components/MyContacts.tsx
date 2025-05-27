@@ -1,12 +1,14 @@
 // imports React and ReactDOM for rendering components
-import React from "react";
+import React, { useEffect } from "react";
 
-// imports color picker logic
-import { getPriority } from "../utilities/ColorLogic";
+// imports priority and sorting logic
+import getPriority from "../utilities/GetPriority";
+import sortContacts from "../utilities/SortContacts";
 
 // imports for custom components
 import EditContact from "./EditContact";
 import ContactDetail from "./ContactDetail";
+import SortButton from "./SortButton";
 
 // imports for Material-UI components
 import Stack from "@mui/material/Stack";
@@ -95,7 +97,23 @@ function MyContacts({ setPage, palette }: MyContactsProps) {
 
 	// state variable for contacts object
 	const [displayedContacts, setDisplayedContacts] =
-		React.useState(sampleData);
+		React.useState<
+			{ fullName: string; lastContact: string; frequency: string }[]
+		>(sampleData);
+
+	// initialize and order contacts, runs again when displayedContacts changes
+	useEffect(() => {
+		// map through contacts array to add priority to each entry
+		const prioritizedContacts = displayedContacts.map((contact) => ({
+			...contact,
+			priority: getPriority(new Date(), contact) || "error",
+		}));
+		sortContacts(prioritizedContacts);
+		setDisplayedContacts(prioritizedContacts);
+	}, [displayedContacts]);
+
+	// state variable to hold sorting method
+	const [sortMethod, setSortMethod] = React.useState("priority-ascending");
 
 	// state variable to keep track of which card is selected
 	const [selectedCard, setSelectedCard] = React.useState(-1);
@@ -137,12 +155,7 @@ function MyContacts({ setPage, palette }: MyContactsProps) {
 						alignItems: "center",
 					}}
 				>
-					<Button
-						sx={{ backgroundColor: "gray" }}
-						variant="contained"
-					>
-						Sort
-					</Button>
+					<SortButton />
 					<TextField
 						id="outlined-basic"
 						label="Search"
@@ -155,7 +168,7 @@ function MyContacts({ setPage, palette }: MyContactsProps) {
 						variant="contained"
 						onClick={() => setPage("Add Contact")}
 					>
-						Add Contact
+						Add
 					</Button>
 				</Stack>
 
