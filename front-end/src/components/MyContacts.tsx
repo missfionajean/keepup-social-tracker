@@ -164,7 +164,7 @@ function MyContacts({ setPage, palette }: MyContactsProps) {
 						onChange={(e) => setFliteredText(e.target.value)}
 					/>
 					<Button
-						sx={{ backgroundColor: "gray" }}
+						sx={{ backgroundColor: "gray", height: "3.8em" }}
 						variant="contained"
 						onClick={() => setPage("Add Contact")}
 					>

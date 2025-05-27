@@ -21,7 +21,7 @@ function SortButton({ setSortMethod }: SortButtonProps) {
 		<>
 			<Button
 				id="sort-button"
-				sx={{ backgroundColor: "gray" }}
+				sx={{ backgroundColor: "gray", height: "3.8em" }}
 				variant="contained"
 				aria-controls={open ? "sort-menu" : undefined}
 				aria-haspopup="true"
