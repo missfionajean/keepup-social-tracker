@@ -40,51 +40,61 @@ const sampleData = [
 		fullName: "John Doe",
 		lastContact: "2025-05-21",
 		frequency: "Daily",
+		notes: "Met at a conference, follow up on project.",
 	},
 	{
 		fullName: "Jane Smith",
 		lastContact: "2025-03-13",
 		frequency: "Monthly",
+		notes: "Discussed potential collaboration, needs follow-up.",
 	},
 	{
 		fullName: "Alice Johnson",
 		lastContact: "2024-01-20",
 		frequency: "Annually",
+		notes: "Annual check-in, discussed long-term goals.",
 	},
 	{
 		fullName: "Bob Brown",
 		lastContact: "2025-03-01",
 		frequency: "Quarterly",
+		notes: "Quarterly review, needs follow-up on action items.",
 	},
 	{
 		fullName: "Charlie Black",
 		lastContact: "2025-02-07",
 		frequency: "Monthly",
+		notes: "Monthly catch-up, discussed recent developments.",
 	},
 	{
 		fullName: "Diana White",
 		lastContact: "2024-10-12",
 		frequency: "Biannually",
+		notes: "Biannual review, discussed future plans.",
 	},
 	{
 		fullName: "Eve Green",
 		lastContact: "2025-05-21",
 		frequency: "Weekly",
+		notes: "Weekly sync, discussed ongoing projects.",
 	},
 	{
 		fullName: "Frank Blue",
 		lastContact: "2025-05-19",
 		frequency: "Daily",
+		notes: "Daily check-in, discussed immediate tasks.",
 	},
 	{
 		fullName: "Grace Yellow",
 		lastContact: "2024-01-05",
 		frequency: "Annually",
+		notes: "Annual review, discussed long-term strategy.",
 	},
 	{
 		fullName: "Hank Red",
 		lastContact: "2025-05-22",
 		frequency: "Yearly",
+		notes: "Yearly review, discussed overall performance.",
 	},
 ];
 
@@ -98,7 +108,12 @@ function MyContacts({ setPage, palette }: MyContactsProps) {
 	// state variable for contacts object
 	const [displayedContacts, setDisplayedContacts] =
 		React.useState<
-			{ fullName: string; lastContact: string; frequency: string }[]
+			{
+				fullName: string;
+				lastContact: string;
+				frequency: string;
+				notes: string;
+			}[]
 		>(sampleData);
 
 	// state variable to hold sorting method
@@ -155,7 +170,7 @@ function MyContacts({ setPage, palette }: MyContactsProps) {
 						alignItems: "center",
 					}}
 				>
-					<SortButton setSortMethod={setSortMethod}/>
+					<SortButton setSortMethod={setSortMethod} />
 					<TextField
 						id="outlined-basic"
 						label="Search"
@@ -174,7 +189,7 @@ function MyContacts({ setPage, palette }: MyContactsProps) {
 
 				<Divider sx={{ margin: "10px 0", width: "95%" }} />
 
-				<Stack spacing={2} direction="column">
+				<Stack spacing={2} direction="column" >
 					{displayedContacts
 						.filter((contact) =>
 							contact.fullName
@@ -228,7 +243,7 @@ function MyContacts({ setPage, palette }: MyContactsProps) {
 												/>
 											) : (
 												<>
-													<h3>{contact.fullName}</h3>
+													<h2>{contact.fullName}</h2>
 													{selectedCard === index ? (
 														<ContactDetail
 															contact={contact}
@@ -239,7 +254,7 @@ function MyContacts({ setPage, palette }: MyContactsProps) {
 															displayedContacts={
 																displayedContacts
 															}
-															setDisplayedContacts={
+                                                            setDisplayedContacts={
 																setDisplayedContacts
 															}
 															setSelectedCard={
