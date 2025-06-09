@@ -8,22 +8,19 @@ import {
 } from "@mui/material";
 
 // type declaration for MyContacts props
+interface Contact {
+	fullName: string;
+	lastContact: string;
+	frequency: string;
+	notes: string;
+}
+
 interface EditContactProps {
-	contact: {
-		fullName: string;
-		lastContact: string;
-		frequency: string;
-	};
+	contact: Contact;
 	index: number;
 	setShowEdit: (showEdit: boolean) => void;
-	displayedContacts: {
-		fullName: string;
-		lastContact: string;
-		frequency: string;
-	}[];
-	setDisplayedContacts: (
-		contacts: { fullName: string; lastContact: string; frequency: string }[]
-	) => void;
+	displayedContacts: Contact[];
+	setDisplayedContacts: (contacts: Contact[]) => void;
 }
 
 function EditContact({
@@ -45,6 +42,8 @@ function EditContact({
 			fullName: formData.get("fullName") as string,
 			lastContact: formData.get("lastContact") as string,
 			frequency: formData.get("frequency") as string,
+			// if notes are not provided, default to an empty string
+			notes: (formData.get("notes") as string) || "",
 		};
 		setDisplayedContacts(updatedContacts);
 		setShowEdit(false);
@@ -59,6 +58,16 @@ function EditContact({
 				gap: "1.5rem",
 				padding: "0.5rem",
 				borderRadius: "8px",
+			}}
+			onKeyDown={(e) => {
+				// Prevent form submission on Enter key press in notes field
+				if (e.key === "Escape") {
+					// Close the edit form on Escape key press
+					setShowEdit(false);
+				} else if (e.key === "Tab") {
+					// Allow tabbing through the form fields
+					e.stopPropagation();
+				}
 			}}
 		>
 			<FormControl required>
@@ -88,7 +97,7 @@ function EditContact({
 			<FormControl required>
 				<InputLabel>Frequency</InputLabel>
 				<NativeSelect
-                    name="frequency"
+					name="frequency"
 					defaultValue={contact.frequency}
 					onClick={(e) => e.stopPropagation()}
 					onMouseDown={(e) => e.stopPropagation()}
@@ -102,6 +111,35 @@ function EditContact({
 					<option value={"Biannually"}>Biannually</option>
 					<option value={"Annually"}>Annually</option>
 				</NativeSelect>
+			</FormControl>
+			<FormControl>
+				<InputLabel>Notes</InputLabel>
+				<Input
+					type="text"
+					multiline
+					name="notes"
+					defaultValue={contact.notes}
+					onClick={(e) => e.stopPropagation()}
+					onMouseDown={(e) => e.stopPropagation()}
+					onTouchStart={(e) => e.stopPropagation()}
+					onTouchEnd={(e) => e.stopPropagation()}
+					onKeyDown={(e) => {
+						// Prevent form submission on Enter key press in notes field
+						if (e.key === " ") {
+							// Allow space key to be handled if needed
+							e.stopPropagation();
+							e.preventDefault();
+							const input = e.target as HTMLInputElement;
+							const start = input.selectionStart || 0;
+							const end = input.selectionEnd || 0;
+							const value = input.value;
+							input.value =
+								value.slice(0, start) + " " + value.slice(end);
+							input.selectionStart = input.selectionEnd =
+								start + 1;
+						}
+					}}
+				/>
 			</FormControl>
 			<Button
 				type="submit"
